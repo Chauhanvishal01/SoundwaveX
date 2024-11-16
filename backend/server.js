@@ -11,6 +11,9 @@ config();
 const app = express();
 const PORT = process.env.PORT || 4000;
 
+app.use(express.json());
+
+//routes
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
