@@ -39,7 +39,7 @@ app.use("/api/albums", albumRoutes);
 app.use("/api/stats", statsRoutes);
 
 //error middleware
-app.use((err, res, res, next) => {
+app.use((err, req, res, next) => {
   res
     .status(500)
     .json({
