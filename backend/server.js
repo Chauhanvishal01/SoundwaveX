@@ -1,5 +1,6 @@
 import express from "express";
 import { config } from "dotenv";
+import { clerkMiddleware } from "@clerk/express";
 import userRoutes from "./routes/user.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import adminRoutes from "./routes/admin.routes.js";
@@ -12,6 +13,9 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 
 app.use(express.json());
+
+//add auth to req obj
+app.use(clerkMiddleware());
 
 //routes
 app.use("/api/users", userRoutes);
