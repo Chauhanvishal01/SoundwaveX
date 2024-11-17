@@ -3,6 +3,7 @@ import { config } from "dotenv";
 import { clerkMiddleware } from "@clerk/express";
 import fileUpload from "express-fileupload";
 import path from "path";
+import cors from "cors";
 
 import userRoutes from "./routes/user.routes.js";
 import authRoutes from "./routes/auth.routes.js";
@@ -15,8 +16,15 @@ config();
 const app = express();
 const PORT = process.env.PORT || 4000;
 const __dirname = path.resolve();
-app.use(express.json());
 
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
+
+app.use(express.json());
 //add auth to req obj
 app.use(clerkMiddleware());
 app.use(
@@ -40,14 +48,12 @@ app.use("/api/stats", statsRoutes);
 
 //error middleware
 app.use((err, req, res, next) => {
-  res
-    .status(500)
-    .json({
-      message:
-        process.env.NODE_ENV === "production"
-          ? "Internal Server Error"
-          : err.message,
-    });
+  res.status(500).json({
+    message:
+      process.env.NODE_ENV === "production"
+        ? "Internal Server Error"
+        : err.message,
+  });
 });
 
 app.listen(PORT, () => {
