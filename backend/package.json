@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "seed:songs": "node seeds/songs.js",
+    "seed:album": "node seeds/albums.js"
   },
   "keywords": [],
   "author": "Vishal Chauhan",
