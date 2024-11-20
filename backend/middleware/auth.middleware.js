@@ -1,11 +1,10 @@
 import { clerkClient } from "@clerk/express";
 
 export const protectRoute = async (req, res, next) => {
-  if (req.auth.userId) {
+  if (!req.auth.userId) {
     return res
       .status(401)
       .json({ message: "Unauthorized Access: You must be logged In" });
-    return;
   }
   next();
 };
